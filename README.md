@@ -38,4 +38,5 @@ Powered by Chart.js.
     arcBorderColor="transparent"
     datasetBorderWidth={0}
     cutout="65%"
+    canvasWidth={400}
 />
