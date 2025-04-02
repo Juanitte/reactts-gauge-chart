@@ -2,6 +2,7 @@ import { Chart, ChartConfiguration, ChartDataset, registerables } from "chart.js
 import { useEffect, useRef, useMemo, useState } from "react";
 
 export interface GaugeChartProps {
+    needleCurrentValue?: number;
     minValue?: number;
     maxValue?: number;
     veryLowLimit?: number;
@@ -45,6 +46,7 @@ interface CustomDataset extends ChartDataset<"doughnut", number[]> {
 }
 
 export default function GaugeChart({
+    needleCurrentValue = 0,
     minValue = 0,
     maxValue = 100,
     veryLowLimit = 20,
@@ -79,7 +81,7 @@ export default function GaugeChart({
     cutout = "65%"
 }: GaugeChartProps) {
 
-    const [needleValue, setNeedleValue] = useState(minValue);
+    const needleValue = needleCurrentValue ?? minValue;
 
     // Cálculos para el gráfico
     const veryLowValue = veryLowLimit - minValue;

@@ -5,6 +5,7 @@ Powered by Chart.js.
 
 ```html
 <GaugeChart
+    needleCurrentValue={0}
     minValue={0}
     maxValue={100}
     veryLowLimit={10}
