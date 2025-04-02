@@ -1,5 +1,5 @@
 import { Chart, ChartConfiguration, ChartDataset, registerables } from "chart.js";
-import { useEffect, useRef, useMemo, useState } from "react";
+import { useEffect, useRef, useMemo } from "react";
 
 export interface GaugeChartProps {
     needleCurrentValue?: number;
