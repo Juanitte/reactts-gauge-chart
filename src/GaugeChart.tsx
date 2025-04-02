@@ -148,26 +148,54 @@ export default function GaugeChart({
         },
     }), []);
 
-    const gaugeLabels = useMemo(() => ({
-        id: "gaugeLabels",
-        afterDatasetsDraw(chart: { getDatasetMeta?: any; ctx?: any; }) {
-            const { ctx } = chart;
-            const xCenter = chart.getDatasetMeta(0).data[0].x;
-            const yCenter = chart.getDatasetMeta(0).data[0].y;
-            const outerRadius = chart.getDatasetMeta(0).data[0].outerRadius;
-            const innerRadius = chart.getDatasetMeta(0).data[0].innerRadius;
-            const widthSlice = (outerRadius - innerRadius) / 2;
+    const gaugeLabels = useMemo(() => {
+        return {
+            id: 'gaugeLabels',
+            afterDatasetsDraw(chart: { getDatasetMeta?: any; ctx?: any; }) {
+                const { ctx } = chart;
 
-            ctx.save();
-            ctx.font = labelFont;
-            ctx.fillStyle = labelColor;
-            ctx.textAlign = "center";
+                const xCenter = chart.getDatasetMeta(0).data[0].x;
+                const yCenter = chart.getDatasetMeta(0).data[0].y;
+                const outerRadius = chart.getDatasetMeta(0).data[0].outerRadius;
+                const innerRadius = chart.getDatasetMeta(0).data[0].innerRadius;
+                const widthSlice = (outerRadius - innerRadius) / 2;
 
-            ctx.fillText(minValue.toString(), xCenter - innerRadius - widthSlice, yCenter + 20);
-            ctx.fillText(maxValue.toString(), xCenter + innerRadius + widthSlice, yCenter + 20);
-            ctx.restore();
-        },
-    }), [minValue, maxValue]);
+                const calculateAngle = (value: number) => {
+                    const range = maxValue - minValue;
+                    const normalizedValue = (value - minValue) / range;
+                    return normalizedValue * 180;
+                };
+    
+                const positions = [
+                    { value: veryLowLimit },
+                    { value: lowLimit },
+                    { value: highLimit },
+                    { value: veryHighLimit },
+                ].map(({ value }) => ({
+                    value,
+                    angle: calculateAngle(value),
+                }));
+
+                ctx.save();
+                ctx.font = labelFont;
+                ctx.fillStyle = labelColor;
+                ctx.textAlign = 'center';
+
+                positions.forEach(({ value, angle }) => {
+                    const radians = (Math.PI / 180) * (angle + 180);
+                    const x = xCenter + Math.cos(radians) * (outerRadius + 20);
+                    const y = yCenter + Math.sin(radians) * (outerRadius + 20);
+                    ctx.fillText(value.toString(), x, y);
+                });
+
+                ctx.font = 'bold 14px sans-serif';
+                ctx.fillText(minValue, xCenter - innerRadius - widthSlice, yCenter + 20);
+                ctx.fillText(maxValue, xCenter + innerRadius + widthSlice, yCenter + 20);
+
+                ctx.restore();
+            }
+        };
+    }, [minValue, veryLowLimit, lowLimit, highLimit, veryHighLimit, maxValue]);
 
     const data = {
         labels: [],
