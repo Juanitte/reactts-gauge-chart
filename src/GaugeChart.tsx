@@ -268,5 +268,5 @@ export default function GaugeChart({
         }
     }, [needleValue]);
 
-    return <canvas ref={canvasRef} style={{ width: canvasWidth, height: "auto" }}></canvas>;
+    return <canvas ref={canvasRef} width={canvasWidth} height="auto"></canvas>;
 }
