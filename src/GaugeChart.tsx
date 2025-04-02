@@ -39,8 +39,6 @@ export interface GaugeChartProps {
     arcBorderColor?: string;
     datasetBorderWidth?: number;
     cutout?: string;
-
-    canvasWidth?: string;
 }
 
 interface CustomDataset extends ChartDataset<"doughnut", number[]> {
@@ -80,8 +78,7 @@ export default function GaugeChart({
     arcBorderWidth = 0,
     arcBorderColor = "transparent",
     datasetBorderWidth = 0,
-    cutout = "65%",
-    canvasWidth = "300px"
+    cutout = "65%"
 }: GaugeChartProps) {
 
     const needleValue = needleCurrentValue ?? minValue;
@@ -268,5 +265,5 @@ export default function GaugeChart({
         }
     }, [needleValue]);
 
-    return <canvas ref={canvasRef} width={canvasWidth} height="auto"></canvas>;
+    return <canvas ref={canvasRef}></canvas>;
 }
