@@ -1,8 +1,9 @@
-Gauge charts library.
+# Gauge charts library
 Powered by Chart.js.
 
-Usage example (Every prop used with their default values. Props are optional):
+## Usage example (Every prop used with their default values. Props are optional):
 
+```html
 <GaugeChart
     minValue={0}
     maxValue={100}
@@ -36,4 +37,4 @@ Usage example (Every prop used with their default values. Props are optional):
     arcBorderColor="transparent"
     datasetBorderWidth={0}
     cutout="65%"
-    />
+/>
