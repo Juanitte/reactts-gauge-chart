@@ -1,0 +1,23 @@
+# Dependencias de Node.js
+node_modules
+package-lock.json
+
+# Carpeta de salida de TypeScript
+dist
+
+# Archivos de entorno
+.env
+.env.local
+.env.development
+.env.production
+
+# Configuración del editor
+.vscode
+.idea
+*.code-workspace
+
+# Archivos de compilación y caché
+*.log
+*.tsbuildinfo
+.DS_Store
+Thumbs.db
