@@ -1,11 +1,11 @@
 {
   "name": "reactts-gauge-chart",
-  "version": "1.0.0",
-  "main": "dist/index.js",
-  "module": "dist/index.esm.js",
+  "version": "1.0.1",
+  "main": "dist/cjs/index.js",
+  "module": "dist/esm/index.js",
   "types": "dist/index.d.ts",
   "scripts": {
-    "build": "tsc"
+    "build": "tsc -p tsconfig.cjs.json && tsc -p tsconfig.esm.json"
   },
   "peerDependencies": {
     "chart.js": "^4.4.8",
