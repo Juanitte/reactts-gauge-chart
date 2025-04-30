@@ -270,6 +270,12 @@ export default function GaugeChart({
 
     useEffect(() => {
         if (chartInstanceRef.current) {
+            const plugins = chartInstanceRef.current.config.plugins!;
+            const index = plugins.findIndex((p: any) => p.id === 'gaugeFlowMeter');
+            if (index !== -1) {
+                plugins[index] = gaugeFlowMeter;
+            }
+    
             chartInstanceRef.current.update();
         }
     }, [gaugeFlowMeter]);
