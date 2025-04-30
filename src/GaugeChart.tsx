@@ -149,7 +149,7 @@ export default function GaugeChart({
             ctx.textAlign = "center";
             ctx.fillText(needleValue, xCenter, yCenter + 45);
         },
-    }), []);
+    }), [meterFont, meterColor]);
 
     const gaugeLabels = useMemo(() => {
         return {
@@ -267,6 +267,12 @@ export default function GaugeChart({
             chartInstanceRef.current.update();
         }
     }, [needleValue]);
+
+    useEffect(() => {
+        if (chartInstanceRef.current) {
+            chartInstanceRef.current.update();
+        }
+    }, [gaugeFlowMeter]);
 
     return <canvas ref={canvasRef} style={{ width: canvasWidth? canvasWidth : "auto", height: "auto" }}></canvas>;
 }
