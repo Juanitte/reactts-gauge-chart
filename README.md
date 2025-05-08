@@ -1,5 +1,5 @@
 # Gauge charts library
-Powered by Chart.js.
+Gauge charts library for react. Easily used and fully customizable. Powered by Chart.js.
 
 ## Usage example (Every prop used with their default values. Props are optional):
 ![default_gauge_example.png](public/default-gauge-example.png)
