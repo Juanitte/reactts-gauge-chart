@@ -3,6 +3,7 @@ import { useEffect, useRef, useMemo } from "react";
 
 export interface GaugeChartProps {
     needleCurrentValue?: number;
+    dataUnit?: string;
     minValue?: number;
     maxValue?: number;
     veryLowLimit?: number;
@@ -49,6 +50,7 @@ interface CustomDataset extends ChartDataset<"doughnut", number[]> {
 
 export default function GaugeChart({
     needleCurrentValue = 0,
+    dataUnit = "",
     minValue = 0,
     maxValue = 100,
     veryLowLimit = 20,
@@ -147,7 +149,7 @@ export default function GaugeChart({
             ctx.font = meterFont;
             ctx.fillStyle = meterColor;
             ctx.textAlign = "center";
-            ctx.fillText(needleValue, xCenter, yCenter + 45);
+            ctx.fillText(`${needleValue.toLocaleString()} ${dataUnit}`, xCenter, yCenter + 45);
         },
     }), [meterFont, meterColor]);
 

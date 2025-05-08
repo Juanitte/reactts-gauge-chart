@@ -7,6 +7,7 @@ Powered by Chart.js.
 ```html
 <GaugeChart
     needleCurrentValue={0}
+    dataUnit={""}
     minValue={0}
     maxValue={100}
     veryLowLimit={10}
@@ -44,6 +45,7 @@ Powered by Chart.js.
 ```
 ## Props:
 - **needleCurrentValue:** The needle value. This should be filled with an useState(the chart won't render again, just the needle).
+- **dataUnit:** The data unit, string. I.E: "ºC", "Hz", "Kg".
   
 - **minValue:** The minimum value for the chart.
 - **maxValue:** The maximum value for the chart.
@@ -67,7 +69,7 @@ Powered by Chart.js.
 - **needleBorderColor:** The needle's border color.
 - **needleFillColor:** The needle's color.
 - **needleWidth:** The needle's width.
-- 
+  
 - **meterFont:** The font for the Flow Meter.
 - **meterColor:** The color for the Flow Meter font.
 
