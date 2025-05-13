@@ -149,7 +149,10 @@ export default function GaugeChart({
             ctx.font = meterFont;
             ctx.fillStyle = meterColor;
             ctx.textAlign = "center";
-            ctx.fillText(`${needleValue.toLocaleString()} ${dataUnit}`, xCenter, yCenter + 45);
+            if(dataUnit !== "")
+                ctx.fillText(`${needleValue.toLocaleString()} ${dataUnit}`, xCenter, yCenter + 45);
+            else
+                ctx.fillText(`${needleValue.toLocaleString()}`, xCenter, yCenter + 45);
         },
     }), [meterFont, meterColor]);
 
