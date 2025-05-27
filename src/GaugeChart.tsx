@@ -114,7 +114,7 @@ export default function GaugeChart({
             const radius = needleWidth;
             const needleVal = data.datasets[0].needleValue || 0;
             const widthSlice = (outerRadius - innerRadius) / 2;
-            const circumference = (meta.data[0].circumference / Math.PI / data.datasets[0].data[0]) * needleVal;
+            const circumference = (meta.data[0].circumference / Math.PI / data.datasets[0].data[0]) * (needleVal - minValue);
 
             ctx.translate(xCenter, yCenter);
             ctx.rotate(Math.PI * (circumference + 1.5));
@@ -136,7 +136,7 @@ export default function GaugeChart({
 
             ctx.restore();
         },
-    }), []);
+    }), [minValue, needleWidth, needleBorderColor, needleFillColor]);
 
     const gaugeFlowMeter = useMemo(() => ({
         id: "gaugeFlowMeter",
