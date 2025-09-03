@@ -42,6 +42,9 @@ export interface GaugeChartProps {
     cutout?: string;
 
     canvasWidth?: number;
+
+    // Controls Chart.js animations (initial render and updates). Defaults to false (no animation)
+    animationsEnabled?: boolean;
 }
 
 interface CustomDataset extends ChartDataset<"doughnut", number[]> {
@@ -83,7 +86,8 @@ export default function GaugeChart({
     arcBorderColor = "transparent",
     datasetBorderWidth = 0,
     cutout = "65%",
-    canvasWidth
+    canvasWidth,
+    animationsEnabled = false
 }: GaugeChartProps) {
 
     const needleValue = needleCurrentValue ?? minValue;
@@ -226,6 +230,8 @@ export default function GaugeChart({
         type: "doughnut",
         data,
         options: {
+            // Toggle animations based on prop
+            animation: animationsEnabled,
             responsive: true,
             maintainAspectRatio: false,
             aspectRatio: aspectRatio,
@@ -269,9 +275,22 @@ export default function GaugeChart({
     useEffect(() => {
         if (chartInstanceRef.current) {
             (chartInstanceRef.current.data.datasets[0] as CustomDataset).needleValue = needleValue;
-            chartInstanceRef.current.update();
+            // Update honoring the animationsEnabled flag
+            animationsEnabled
+                ? chartInstanceRef.current.update()
+                : chartInstanceRef.current.update('none');
         }
-    }, [needleValue]);
+    }, [needleValue, animationsEnabled]);
+
+    // Reflect runtime changes to animationsEnabled into chart options without recreation
+    useEffect(() => {
+        if (chartInstanceRef.current) {
+            chartInstanceRef.current.options.animation = animationsEnabled as any;
+            animationsEnabled
+                ? chartInstanceRef.current.update()
+                : chartInstanceRef.current.update('none');
+        }
+    }, [animationsEnabled]);
 
     useEffect(() => {
         if (chartInstanceRef.current) {
@@ -280,10 +299,12 @@ export default function GaugeChart({
             if (index !== -1) {
                 plugins[index] = gaugeFlowMeter;
             }
-    
-            chartInstanceRef.current.update();
+            // Update honoring the animationsEnabled flag
+            animationsEnabled
+                ? chartInstanceRef.current.update()
+                : chartInstanceRef.current.update('none');
         }
-    }, [gaugeFlowMeter]);
+    }, [gaugeFlowMeter, animationsEnabled]);
 
     return <canvas ref={canvasRef} style={{ width: canvasWidth? canvasWidth : "auto", height: "auto" }}></canvas>;
 }
