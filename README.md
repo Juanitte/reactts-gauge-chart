@@ -41,6 +41,7 @@ Gauge charts library for react. Easily used and fully customizable. Powered by C
     datasetBorderWidth={0}
     cutout="65%"
     canvasWidth={400}
+    animationsEnabled={false}
 />
 ```
 ## Props:
@@ -87,3 +88,4 @@ Gauge charts library for react. Easily used and fully customizable. Powered by C
 - **datasetBorderWidth:** Border width for every dataset (chart section I.E: high, very high, etc).
 - **cutout:** The arc width (Try changing it to see, I can't explain it better).
 - **canvasWidth:** The whole canvas width in pixels(optional, is in responsive by default).
+- **animationsEnabled:** Enables Chart.js animations on mount and updates. Default is `false` (no animation). Set to `true` to restore animations.
